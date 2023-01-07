@@ -704,7 +704,8 @@ from RAWData R
 		<Element Type="SqlProcedure" Name="[dbo].[xp_inserTestData]">
 			<Property Name="BodyScript">
 				<Value><![CDATA[ begin
-	declare @jdata varchar(max) = '[{
+	declare @jdata varchar(max) = '[
+{
     "Domain":  "quanta.corp",
     "BIOSVersion":  "VRTUAL - 5001818",
     "Manufacturer":  "Microsoft Corporation",
@@ -712,268 +713,344 @@ from RAWData R
     "IPAddress":  "10.243.29.31",
     "Users":  [
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\iof",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\iofgds1",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\iofgds2",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10605005",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10611031",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA11107063",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA93110110",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA95110112",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA97030311",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SvrMgmt",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\tdsadmin",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "TDSAP31\\Administrator",
-                      "Group":  "Administrators"
+                      "isActive":  "No"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "TDSAP31\\Administrator",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "TDSAP31\\localking",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "TDSAP31\\localking",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\97030311",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10508075",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10509050",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10605005",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10611001",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10707058",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10810141",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10903011",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10903104",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10905117",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10907055",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10907097",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10908149",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10911144",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11006064",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11007136",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11008120",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11009016",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11009017",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11009018",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11009104",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev11109105",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev96052112",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev97030311",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev99110101",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\97030311",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10508075",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10509050",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10605005",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10611001",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10707058",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10810141",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10903011",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10903104",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10905117",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10907055",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10907097",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10908149",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev10911144",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11006064",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11007136",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11008120",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11009016",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11009017",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11009018",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11009104",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev11109105",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev96052112",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev97030311",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\dev99110101",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\Domain Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   }
               ],
     "BIOSName":  "BIOS Date: 05/18/18 15:55:38  Ver: 09.00.07",
@@ -986,7 +1063,7 @@ from RAWData R
                    },
                    {
                        "Driver":  "C",
-                       "SizeRemaining":  0.76331001058333525
+                       "SizeRemaining":  0.76417855605300544
                    }
                ]
 }
@@ -999,60 +1076,84 @@ from RAWData R
     "IPAddress":  "10.243.28.70",
     "Users":  [
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\iof",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10605005",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10611031",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA11107063",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA93110110",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA95110112",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA97030311",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SvrMgmt",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\tdsadmin",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "TDSHV05\\Administrator",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "TDSHV05\\Administrator",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "TDSHV05\\localking",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "TDSHV05\\localking",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\Domain Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   }
               ],
     "BIOSName":  "BIOS Date: 06/16/14 14:18:40 Ver: 04.06.05",
@@ -1061,11 +1162,11 @@ from RAWData R
     "Volume":  [
                    {
                        "Driver":  "C",
-                       "SizeRemaining":  0.77879919743272985
+                       "SizeRemaining":  0.77869459840737842
                    },
                    {
                        "Driver":  "D",
-                       "SizeRemaining":  0.3290194487458919
+                       "SizeRemaining":  0.32910000623068469
                    }
                ]
 }
@@ -1078,56 +1179,79 @@ from RAWData R
     "IPAddress":  "10.243.28.225",
     "Users":  [
                   {
+                      "Group":  "Administrators",
                       "Name":  "GLTDSDEVOPS\\Administrator",
-                      "Group":  "Administrators"
+                      "isActive":  "No"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "GLTDSDEVOPS\\Administrator",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "GLTDSDEVOPS\\localking",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "GLTDSDEVOPS\\localking",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10605005",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10611031",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA11107063",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA93110110",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA95110112",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA97030311",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SvrMgmt",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\tdsadmin",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\Domain Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   }
               ],
     "BIOSName":  "Hyper-V UEFI Release v4.0",
@@ -1136,7 +1260,7 @@ from RAWData R
     "Volume":  [
                    {
                        "Driver":  "C",
-                       "SizeRemaining":  0.301479787021279
+                       "SizeRemaining":  0.30160715161715151
                    }
                ]
 }
@@ -1149,76 +1273,119 @@ from RAWData R
     "IPAddress":  "10.243.29.109",
     "Users":  [
                   {
+                      "Group":  "Administrators",
                       "Name":  "GLDOCKERLAB\\Administrator",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "GLDOCKERLAB\\Administrator",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "GLDOCKERLAB\\DockerUser",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "GLDOCKERLAB\\DockerUser",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "GLDOCKERLAB\\localking",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
+                      "Name":  "GLDOCKERLAB\\localking",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\iof",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10605005",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA10611031",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA11107063",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA93110110",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA95110112",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SMA97030311",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\SvrMgmt",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Administrators",
                       "Name":  "QUANTA\\tdsadmin",
-                      "Group":  "Administrators"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Remote Desktop Users",
                       "Name":  "QUANTA\\dev10707058",
-                      "Group":  "Remote Desktop Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "GLDOCKERLAB\\DockerUser",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
+                      "Name":  "GLDOCKERLAB\\DockerUser",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Users",
                       "Name":  "GLDOCKERLAB\\TestUser",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
+                      "Name":  "GLDOCKERLAB\\TestUser",
+                      "isActive":  "Yes"
+                  },
+                  {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   },
                   {
+                      "Group":  "Users",
                       "Name":  "QUANTA\\Domain Users",
-                      "Group":  "Users"
+                      "isActive":  "Yes"
                   }
               ],
     "BIOSName":  "Hyper-V UEFI Release v4.0",
@@ -1227,11 +1394,11 @@ from RAWData R
     "Volume":  [
                    {
                        "Driver":  "C",
-                       "SizeRemaining":  0.12432640549951193
+                       "SizeRemaining":  0.12411869522547513
                    },
                    {
                        "Driver":  "D",
-                       "SizeRemaining":  0.6002291682963079
+                       "SizeRemaining":  0.60022937454777459
                    }
                ]
 }
@@ -1254,10 +1421,11 @@ end]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="19076" />
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="25980" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="create   procedure xp_inserTestData as" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE   procedure [dbo].[xp_inserTestData] as" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[xp_test]">
