@@ -13,14 +13,23 @@ foreach( $server in $servers){
             $vol_status += @{Driver=$vol.DriveLetter;SizeRemaining=($vol.SizeRemaining/$vol.Size)}
         }
         $all_users = @()
-        foreach($user in (Get-LocalGroupMember -Group "Administrators").Name){
-            $all_users += @{Name=$user;Group="Administrators"}
+        foreach($user in Get-LocalGroupMember -Group "Administrators"){
+            if($user.PrincipalSource -eq "Local"){
+                $all_users += @{Name=$user.Name;Group="Administrators";isActive=(net user $user.Name.split("\")[1])[5].Split(" ")[-1]}
+            }
+            $all_users += @{Name=$user.Name;Group="Administrators";isActive="Yes"}
         }
-        foreach($user in (Get-LocalGroupMember -Group "Remote Desktop Users").Name){
-            $all_users += @{Name=$user;Group="Remote Desktop Users"}
+        foreach($user in Get-LocalGroupMember -Group "Remote Desktop Users"){
+            if($user.PrincipalSource -eq "Local"){
+                $all_users += @{Name=$user.Name;Group="Remote Desktop Users";isActive=(net user $user.Name.split("\")[1])[5].Split(" ")[-1]}
+            }
+            $all_users += @{Name=$user.Name;Group="Remote Desktop Users";isActive="Yes"}
         }
-        foreach($user in (Get-LocalGroupMember -Group "Users").Name){
-            $all_users += @{Name=$user;Group="Users"}
+        foreach($user in Get-LocalGroupMember -Group "Users"){
+            if($user.PrincipalSource -eq "Local"){
+                $all_users += @{Name=$user.Name;Group="Users";isActive=(net user $user.Name.split("\")[1])[5].Split(" ")[-1]}
+            }
+            $all_users += @{Name=$user.Name;Group="Users";isActive="Yes"}
         }
         $system= Get-ComputerInfo
         $computer = Get-CimInstance -ClassName Win32_ComputerSystem 
@@ -47,14 +56,23 @@ foreach($vol in $volumes){
     $vol_status += @{Driver=$vol.DriveLetter;SizeRemaining=($vol.SizeRemaining/$vol.Size)}
 }
 $all_users = @()
-foreach($user in (Get-LocalGroupMember -Group "Administrators").Name){
-    $all_users += @{Name=$user;Group="Administrators";isActive=(net user $user)[5].Split(" ")[-1]}
+foreach($user in Get-LocalGroupMember -Group "Administrators"){
+    if($user.PrincipalSource -eq "Local"){
+        $all_users += @{Name=$user.Name;Group="Administrators";isActive=(net user $user.Name.split("\")[1])[5].Split(" ")[-1]}
+    }
+    $all_users += @{Name=$user.Name;Group="Administrators";isActive="Yes"}
 }
-foreach($user in (Get-LocalGroupMember -Group "Remote Desktop Users").Name){
-    $all_users += @{Name=$user;Group="Remote Desktop Users";isActive=(net user $user)[5].Split(" ")[-1]}
+foreach($user in Get-LocalGroupMember -Group "Remote Desktop Users"){
+    if($user.PrincipalSource -eq "Local"){
+        $all_users += @{Name=$user.Name;Group="Remote Desktop Users";isActive=(net user $user.Name.split("\")[1])[5].Split(" ")[-1]}
+    }
+    $all_users += @{Name=$user.Name;Group="Remote Desktop Users";isActive="Yes"}
 }
-foreach($user in (Get-LocalGroupMember -Group "Users").Name){
-    $all_users += @{Name=$user;Group="Users";isActive=(net user $user)[5].Split(" ")[-1]}
+foreach($user in Get-LocalGroupMember -Group "Users"){
+    if($user.PrincipalSource -eq "Local"){
+        $all_users += @{Name=$user.Name;Group="Users";isActive=(net user $user.Name.split("\")[1])[5].Split(" ")[-1]}
+    }
+    $all_users += @{Name=$user.Name;Group="Users";isActive="Yes"}
 }
 $system= Get-ComputerInfo
 $computer = Get-CimInstance -ClassName Win32_ComputerSystem 
