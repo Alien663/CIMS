@@ -630,7 +630,7 @@ from RAWData R
 		<Element Type="SqlView" Name="[dbo].[vd_MachineVolumes]">
 			<Property Name="QueryScript">
 				<Value><![CDATA[
-select R.RID, R.MachineName, F.*
+select R.RID, R.MachineName, F.Driver, convert(varchar(10), Round(convert(decimal(5, 2) , F.Remaining * 100 ), 2)) + '%' as RemainingRate
 from RAWData R
 	cross apply openjson(R.Volume) with
 	(
@@ -659,10 +659,14 @@ from RAWData R
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[Driver]" />
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[Driver]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry />
+						</Relationship>
+					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[Remaining]" />
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[RemainingRate]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="QueryDependencies">
@@ -675,6 +679,14 @@ from RAWData R
 				<Entry>
 					<References Name="[dbo].[RAWData].[MachineName]" />
 				</Entry>
+				<Entry />
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[varchar]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+				<Entry />
 			</Relationship>
 			<Relationship Name="Schema">
 				<Entry>
@@ -682,10 +694,11 @@ from RAWData R
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="210" />
+				<Property Name="CreateOffset" Value="2" />
+				<Property Name="Length" Value="325" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="create view vd_MachineVolumes as" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE view [dbo].[vd_MachineVolumes] as" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[xp_inserTestData]">
