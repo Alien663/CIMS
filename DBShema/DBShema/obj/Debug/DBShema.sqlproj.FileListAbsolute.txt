@@ -1,0 +1,10 @@
+D:\SideProject\ITMS\DBShema\DBShema\bin\Debug\DBShema.dacpac
+D:\SideProject\ITMS\DBShema\DBShema\bin\Debug\DBShema.dll
+D:\SideProject\ITMS\DBShema\DBShema\bin\Debug\DBShema.pdb
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\DBShema.sqlproj.AssemblyReference.cache
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\Model.xml
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\refactor.xml
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\postdeploy.sql
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\predeploy.sql
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\DBShema.dll
+D:\SideProject\ITMS\DBShema\DBShema\obj\Debug\DBShema.pdb
