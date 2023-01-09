@@ -1,5 +1,5 @@
 $report_file = "./report.json"
-$names = @("tdsap31", "tdshv05", "gltdsdevops")
+$names = @("computer 1", "computer 2", "computer 3")
 $servers = @()
 foreach( $name in $names){
     $servers += [System.Net.Dns]::GetHostByName($name).HostName
