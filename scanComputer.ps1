@@ -1,5 +1,5 @@
 $report_file = "./report.json"
-$names = @("computer 1", "computer 2", "computer 3")
+$names = @("computer1", "computer2", "computer3")
 $servers = @()
 foreach( $name in $names){
     $servers += [System.Net.Dns]::GetHostByName($name).HostName
@@ -8,9 +8,9 @@ echo "[" > $report_file
 foreach( $server in $servers){
     InVoke-Command -ComputerName $server -ScriptBlock{
         $vol_status=@()
-        $volumes = Get-Volume | select DriveLetter,SizeRemaining,Size | where DriveLetter -ne $null
+        $volumes = Get-Volume | select DriveLetter,SizeRemaining,Size,DriveType | where DriveLetter -ne $null
         foreach($vol in $volumes){
-            $vol_status += @{Driver=$vol.DriveLetter;SizeRemaining=($vol.SizeRemaining/$vol.Size)}
+            $vol_status += @{Driver=$vol.DriveLetter;SizeRemaining=$vol.SizeRemaining;Size=$vol.Size;DriveType=$vol.DriveType}
         }
         $all_users = @()
         foreach($user in Get-LocalGroupMember -Group "Administrators"){
@@ -51,9 +51,9 @@ foreach( $server in $servers){
 }
 
 $vol_status=@()
-$volumes = Get-Volume | select DriveLetter,SizeRemaining,Size | where DriveLetter -ne $null
+$volumes = Get-Volume | select DriveLetter,SizeRemaining,Size,DriveType | where DriveLetter -ne $null
 foreach($vol in $volumes){
-    $vol_status += @{Driver=$vol.DriveLetter;SizeRemaining=($vol.SizeRemaining/$vol.Size)}
+    $vol_status += @{Driver=$vol.DriveLetter;SizeRemaining=$vol.SizeRemaining;Size=$vol.Size;DriveType=$vol.DriveType}
 }
 $all_users = @()
 foreach($user in Get-LocalGroupMember -Group "Administrators"){

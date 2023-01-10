@@ -562,10 +562,143 @@
 			</Relationship>
 			<AttachedAnnotation Disambiguator="8" />
 		</Element>
+		<Element Type="SqlView" Name="[dbo].[vd_MachineInformation]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+select RID, MachineName + '.' +  Domain as FullName, IPAddress, OSType,
+	case
+		when SystemFamily is null then 'VM'
+		when SystemFamily = 'Virtual Machine' then 'VM'
+		else 'Physical' end as [MachineType],
+	Manufacturer, SystemFamily, BIOSName, BIOSVersion
+from RAWData]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[RID]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[RID]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[FullName]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[IPAddress]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[IPAddress]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[OSType]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[OSType]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[MachineType]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[Manufacturer]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[Manufacturer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[SystemFamily]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[SystemFamily]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[BIOSName]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[BIOSName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineInformation].[BIOSVersion]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[RAWData].[BIOSVersion]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[RAWData]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[RID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[MachineName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[Domain]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[IPAddress]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[OSType]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[SystemFamily]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[Manufacturer]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[BIOSName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RAWData].[BIOSVersion]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="313" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="create view vd_MachineInformation as" />
+			</Annotation>
+		</Element>
 		<Element Type="SqlView" Name="[dbo].[vd_MachineUsers]">
 			<Property Name="QueryScript">
 				<Value><![CDATA[
-select R.RID, R.MachineName, F.*
+select R.RID, R.MachineName, F.[Group],
+	REPLACE(F.Account, '\\', '\') as [Account],
+	iif(CHARINDEX('QUANTA', F.Account) > 0, 1, 0) as isDomain,
+	case F.isActive
+		when 'Yes' then 1
+		when 'No' then 0
+	end as [isActive]
 from RAWData R
 	cross apply openjson(R.Users) with
 	(
@@ -595,10 +728,17 @@ from RAWData R
 					</Element>
 				</Entry>
 				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineUsers].[Group]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry />
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
 					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineUsers].[Account]" />
 				</Entry>
 				<Entry>
-					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineUsers].[Group]" />
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineUsers].[isDomain]" />
 				</Entry>
 				<Entry>
 					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineUsers].[isActive]" />
@@ -614,6 +754,9 @@ from RAWData R
 				<Entry>
 					<References Name="[dbo].[RAWData].[MachineName]" />
 				</Entry>
+				<Entry />
+				<Entry />
+				<Entry />
 			</Relationship>
 			<Relationship Name="Schema">
 				<Entry>
@@ -621,21 +764,30 @@ from RAWData R
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="230" />
+				<Property Name="Length" Value="431" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="create view vd_MachineUsers as" />
+				<Property Name="HeaderContents" Value="CREATE view [dbo].[vd_MachineUsers] as" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlView" Name="[dbo].[vd_MachineVolumes]">
 			<Property Name="QueryScript">
 				<Value><![CDATA[
-select R.RID, R.MachineName, F.Driver, convert(varchar(10), Round(convert(decimal(5, 2) , F.Remaining * 100 ), 2)) + '%' as RemainingRate
+select R.RID, R.MachineName, F.Driver, F.DriveType,
+	iif(F.Size = 0, '',
+		convert(varchar(10),
+			Round( convert(decimal(5, 2) ,
+				(F.Remaining/F.Size) * 100 ), 2)) + '%') as RemainingRate,
+	convert(varchar(40),
+		convert(decimal(10, 2),
+			(F.Remaining)/1073741824)) + ' GB' as [RemainintSize]
 from RAWData R
 	cross apply openjson(R.Volume) with
 	(
 		Driver varchar(4) '$.Driver',
-		Remaining decimal(20, 18) '$.SizeRemaining'
+		Remaining decimal(15, 1) '$.SizeRemaining',
+		Size decimal(15, 1) '$.Size',
+		DriveType varchar(16) '$.DriveType'
 	) F]]></Value>
 			</Property>
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -666,7 +818,17 @@ from RAWData R
 					</Element>
 				</Entry>
 				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[DriveType]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry />
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
 					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[RemainingRate]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[vd_MachineVolumes].[RemainintSize]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="QueryDependencies">
@@ -679,6 +841,8 @@ from RAWData R
 				<Entry>
 					<References Name="[dbo].[RAWData].[MachineName]" />
 				</Entry>
+				<Entry />
+				<Entry />
 				<Entry />
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -694,738 +858,10 @@ from RAWData R
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="CreateOffset" Value="2" />
-				<Property Name="Length" Value="325" />
+				<Property Name="Length" Value="556" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE view [dbo].[vd_MachineVolumes] as" />
-			</Annotation>
-		</Element>
-		<Element Type="SqlProcedure" Name="[dbo].[xp_inserTestData]">
-			<Property Name="BodyScript">
-				<Value><![CDATA[ begin
-	declare @jdata varchar(max) = '[
-{
-    "Domain":  "quanta.corp",
-    "BIOSVersion":  "VRTUAL - 5001818",
-    "Manufacturer":  "Microsoft Corporation",
-    "SystemFamily":  null,
-    "IPAddress":  "10.243.29.31",
-    "Users":  [
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\iof",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\iofgds1",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\iofgds2",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10605005",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10611031",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA11107063",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA93110110",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA95110112",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SvrMgmt",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\tdsadmin",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSAP31\\Administrator",
-                      "isActive":  "No"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSAP31\\Administrator",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSAP31\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSAP31\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10508075",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10509050",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10605005",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10611001",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10707058",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10810141",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10903011",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10903104",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10905117",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10907055",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10907097",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10908149",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10911144",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11006064",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11007136",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11008120",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11009016",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11009017",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11009018",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11009104",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev11109105",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev96052112",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev99110101",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10508075",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10509050",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10605005",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10611001",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10707058",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10810141",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10903011",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10903104",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10905117",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10907055",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10907097",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10908149",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev10911144",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11006064",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11007136",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11008120",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11009016",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11009017",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11009018",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11009104",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev11109105",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev96052112",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\dev99110101",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\Domain Users",
-                      "isActive":  "Yes"
-                  }
-              ],
-    "BIOSName":  "BIOS Date: 05/18/18 15:55:38  Ver: 09.00.07",
-    "MachineName":  "tdsap31",
-    "OSType":  "Microsoft Windows Server 2019 Standard",
-    "Volume":  [
-                   {
-                       "Driver":  "D",
-                       "SizeRemaining":  0.88259413601676218
-                   },
-                   {
-                       "Driver":  "C",
-                       "SizeRemaining":  0.76417855605300544
-                   }
-               ]
-}
-,
-{
-    "Domain":  "quanta.corp",
-    "BIOSVersion":  "ALASKA - 1072009",
-    "Manufacturer":  "Quanta",
-    "SystemFamily":  "To be filled by O.E.M.",
-    "IPAddress":  "10.243.28.70",
-    "Users":  [
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\iof",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10605005",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10611031",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA11107063",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA93110110",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA95110112",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SvrMgmt",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\tdsadmin",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSHV05\\Administrator",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSHV05\\Administrator",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSHV05\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "TDSHV05\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\Domain Users",
-                      "isActive":  "Yes"
-                  }
-              ],
-    "BIOSName":  "BIOS Date: 06/16/14 14:18:40 Ver: 04.06.05",
-    "MachineName":  "TDSHV05",
-    "OSType":  "Microsoft Windows Server 2019 Standard",
-    "Volume":  [
-                   {
-                       "Driver":  "C",
-                       "SizeRemaining":  0.77869459840737842
-                   },
-                   {
-                       "Driver":  "D",
-                       "SizeRemaining":  0.32910000623068469
-                   }
-               ]
-}
-,
-{
-    "Domain":  "quanta.corp",
-    "BIOSVersion":  "VRTUAL - 1",
-    "Manufacturer":  "Microsoft Corporation",
-    "SystemFamily":  "Virtual Machine",
-    "IPAddress":  "10.243.28.225",
-    "Users":  [
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLTDSDEVOPS\\Administrator",
-                      "isActive":  "No"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLTDSDEVOPS\\Administrator",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLTDSDEVOPS\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLTDSDEVOPS\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10605005",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10611031",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA11107063",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA93110110",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA95110112",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SvrMgmt",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\tdsadmin",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\Domain Users",
-                      "isActive":  "Yes"
-                  }
-              ],
-    "BIOSName":  "Hyper-V UEFI Release v4.0",
-    "MachineName":  "GLTDSDEVOPS",
-    "OSType":  "Microsoft Windows Server 2022 Standard",
-    "Volume":  [
-                   {
-                       "Driver":  "C",
-                       "SizeRemaining":  0.30160715161715151
-                   }
-               ]
-}
-,
-{
-    "Domain":  "quanta.corp",
-    "BIOSVersion":  "VRTUAL - 1",
-    "Manufacturer":  "Microsoft Corporation",
-    "SystemFamily":  "Virtual Machine",
-    "IPAddress":  "10.243.29.109",
-    "Users":  [
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLDOCKERLAB\\Administrator",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLDOCKERLAB\\Administrator",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLDOCKERLAB\\DockerUser",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLDOCKERLAB\\DockerUser",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLDOCKERLAB\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "GLDOCKERLAB\\localking",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\iof",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10605005",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA10611031",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA11107063",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA93110110",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA95110112",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SMA97030311",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\SvrMgmt",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Administrators",
-                      "Name":  "QUANTA\\tdsadmin",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Remote Desktop Users",
-                      "Name":  "QUANTA\\dev10707058",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "GLDOCKERLAB\\DockerUser",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "GLDOCKERLAB\\DockerUser",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "GLDOCKERLAB\\TestUser",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "GLDOCKERLAB\\TestUser",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\Authenticated Users",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "NT AUTHORITY\\INTERACTIVE",
-                      "isActive":  "Yes"
-                  },
-                  {
-                      "Group":  "Users",
-                      "Name":  "QUANTA\\Domain Users",
-                      "isActive":  "Yes"
-                  }
-              ],
-    "BIOSName":  "Hyper-V UEFI Release v4.0",
-    "MachineName":  "gldockerlab",
-    "OSType":  "Microsoft Windows Server 2019 Standard",
-    "Volume":  [
-                   {
-                       "Driver":  "C",
-                       "SizeRemaining":  0.12411869522547513
-                   },
-                   {
-                       "Driver":  "D",
-                       "SizeRemaining":  0.60022937454777459
-                   }
-               ]
-}
-]'
-	exec xp_UpdateRawData @jdata
-end]]></Value>
-			</Property>
-			<Property Name="IsAnsiNullsOn" Value="True" />
-			<Relationship Name="BodyDependencies">
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[varchar]" />
-				</Entry>
-				<Entry>
-					<References Name="[dbo].[xp_UpdateRawData]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="Schema">
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[dbo]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="CreateOffset" Value="2" />
-				<Property Name="Length" Value="25980" />
-				<Property Name="StartLine" Value="1" />
-				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE   procedure [dbo].[xp_inserTestData] as" />
+				<Property Name="HeaderContents" Value="create   view vd_MachineVolumes as" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[xp_test]">

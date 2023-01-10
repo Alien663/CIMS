@@ -70,6 +70,6 @@
     <Build Include="dbo\Views\vd_MachineUsers.sql" />
     <Build Include="dbo\Stored Procedures\xp_UpdateRawData.sql" />
     <Build Include="dbo\Stored Procedures\xp_test.sql" />
-    <Build Include="dbo\Stored Procedures\xp_inserTestData.sql" />
+    <Build Include="dbo\Views\vd_MachineInformation.sql" />
   </ItemGroup>
 </Project>
