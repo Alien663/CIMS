@@ -1,54 +1,43 @@
-## System Architecture
-### Database
-There's only one real entity so far : RAWData
+# Computer Information Manage System
 
-For easy updating data, usiong JSON format to store computer information.
+## Enviroment
+1. at least windows Powershell 5.1
+2. at least SQL Server 2016 (needs json parser)
+3. dotnet 6 or 3.1
 
-Recording information bellow :
-1. Machine Name
-2. Domain
-3. OS Type
-4. BIOS Name
-5. BIOS Version
-6. Manufacturer
-7. System Family
-8. IP Address
-9. Users
-10. Volume Remaining
+## Build
 
+### 1. Database
 
+Thers are two way to create database easily.
 
+* [Depoly Database with DAC](https://learn.microsoft.com/zh-tw/sql/relational-databases/data-tier-applications/deploy-a-data-tier-application?view=sql-server-ver16) : `\DBShema\DBShema\bin\Debug\DBShema.dacpac`
 
+* [SQL Project](https://learn.microsoft.com/zh-tw/sql/ssdt/how-to-build-and-deploy-to-a-local-database?view=sql-server-ver16) (You have to create a empty databse and name as "ITMS before deploy it")
 
-### Backend
+### 2. Powershell Script
 
-#### Background Job
-Use remote powershell(Invoke-Command) to ask data from servers.
-But some command will not work in windows server 2012 R2, suggest use at least windos server 2016.
-1. Get-LocalGroupMember
-2. Get-Volume
-3. Get-ComputerInfo
-4. Get-CimInstance
+This project use AD credential to get information from severial computers.
 
-#### WebAPI
-#nothing yet
+So it's important to enable winRM on computer that you want to scan.
 
-### Frontend
-#nothing yet
+Before run the scanComputer.ps1, there are two settings need to configure.
 
+1. check parameters
+```powershell
+$report_file = "./report.json" # need absilute file path for insert data into database
+$names = @("computer1", "computer2", "computer3") # suggest to be empty when you just first try
+```
 
+2. uncomment the 95 line : # sqlcmd .....
 
-## xp_insertTestData
-In order to devlop quickly, I creat a procedure "xp_insertTestData" to insert some static data into database.
+After running script, there should be a report.json at the folder you configure.
 
-The static data came from "scanComputer.ps1".
+If not, please check the output of script or the folder is exist.
 
-I use merge to insert or update data depend on computer name.
+### 3. Backend Project
 
-## Future Work
-List bellow had been completed but may change in the future :
-1. Columns of computer information
-2. Need clearly reequest to design database schema
+The backend project is build with dotnet 6, check your environment before run it.
 
-List bellow need to work : 
-1. read report.json into sql server.
+If you run the backend project successfully, it should goto the swagger page. Just
+try the API here.
