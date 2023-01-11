@@ -63,13 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\RAWData.sql" />
-    <Build Include="dbo\Tables\Member.sql" />
-    <Build Include="dbo\Tables\MachineMember.sql" />
-    <Build Include="dbo\Tables\Machine.sql" />
     <Build Include="dbo\Views\vd_MachineVolumes.sql" />
     <Build Include="dbo\Views\vd_MachineUsers.sql" />
     <Build Include="dbo\Stored Procedures\xp_UpdateRawData.sql" />
-    <Build Include="dbo\Stored Procedures\xp_test.sql" />
     <Build Include="dbo\Views\vd_MachineInformation.sql" />
   </ItemGroup>
 </Project>

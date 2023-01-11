@@ -10,6 +10,10 @@
     [OSType]       VARCHAR (64)   NULL,
     [Users]        NVARCHAR (MAX) NULL,
     [Volume]       NVARCHAR (MAX) NULL,
+    [Since]        DATETIME       DEFAULT (getdate()) NULL,
+    [UPDDate]      DATETIME       DEFAULT (getdate()) NULL,
     CONSTRAINT [PK_RAWData] PRIMARY KEY CLUSTERED ([RID] ASC)
 );
+
+
 
