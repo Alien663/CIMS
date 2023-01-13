@@ -20,7 +20,7 @@ Before run the scanComputer.ps1, there are two settings need to configure.
 
 1. check parameters
     ```powershell
-    $report_file = "./report.json" # need absilute file path for insert data into database
+    $report_file = "./report.json" # needs absolute file path for insert data into database
     $names = @("computer1", "computer2", "computer3") # suggest to be empty when you just first try
     ```
 
