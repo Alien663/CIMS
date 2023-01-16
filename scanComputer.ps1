@@ -1,4 +1,4 @@
-$report_file = "./report.json" # need absilute file path for insert data into database
+$report_file = "./report.json" # need absolute file path to insert data into database
 $names = @("computer1", "computer2", "computer3")
 $servers = @()
 foreach( $name in $names){
@@ -93,3 +93,5 @@ echo "]" >> $report_file
 
 # sqlcmd bellow will insert json data into database
 # sqlcmd -S . -d ITMS -Q "declare @jdata nvarchar(max); SELECT @jdata=BulkColumn FROM OPENROWSET (BULK N'$report_file', SINGLE_NCLOB) as j; exec xp_UpdateRawData @jdata"
+
+pause
