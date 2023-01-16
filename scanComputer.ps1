@@ -1,5 +1,16 @@
+$names = @("") # Set machines you want to scan. If you just scan local machine, let it empty.
 $report_file = "./report.json" # need absolute file path to insert data into database
-$names = @("computer1", "computer2", "computer3")
+
+echo $report_file
+echo $names
+echo "Before run your script, please check the config is correct."
+pause
+
+$folder_list = $report_file -split "\\"
+$folder = $folder_list[0..($folder_list.count-2)] -join "\"
+if(!(Test-Path $folder)){
+    New-Item $folder -Type Directory
+}
 $servers = @()
 foreach( $name in $names){
     $servers += [System.Net.Dns]::GetHostByName($name).HostName
@@ -92,6 +103,6 @@ echo $data | ConvertTo-Json >> $report_file
 echo "]" >> $report_file
 
 # sqlcmd bellow will insert json data into database
-# sqlcmd -S . -d ITMS -Q "declare @jdata nvarchar(max); SELECT @jdata=BulkColumn FROM OPENROWSET (BULK N'$report_file', SINGLE_NCLOB) as j; exec xp_UpdateRawData @jdata"
+sqlcmd -S . -d CIMS -Q "declare @jdata nvarchar(max); SELECT @jdata=BulkColumn FROM OPENROWSET (BULK N'$report_file', SINGLE_NCLOB) as j; exec xp_UpdateRawData @jdata"
 
 pause

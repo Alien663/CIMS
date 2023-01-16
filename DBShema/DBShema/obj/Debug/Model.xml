@@ -650,7 +650,7 @@ from RAWData R
 				Volume = T.Volume,
 				UPDDate = getdate()
 		WHEN NOT MATCHED THEN
-			insert values(T.Domain, T.BIOSVersion, T.Manufacturer, T.SystemFamily, T.IPAddress, T.BIOSName, T.MachineName, T.OSType, T.Users, T.Volume);
+			insert values(T.Domain, T.BIOSVersion, T.Manufacturer, T.SystemFamily, T.IPAddress, T.BIOSName, T.MachineName, T.OSType, T.Users, T.Volume, getdate(), getdate());
 end]]></Value>
 			</Property>
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -790,11 +790,11 @@ end]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="CreateOffset" Value="2" />
-				<Property Name="Length" Value="1259" />
+				<Property Name="CreateOffset" Value="4" />
+				<Property Name="Length" Value="1283" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="&#xD;&#xA;CREATE   procedure [dbo].[xp_UpdateRawData] @jdata nvarchar(max)&#xD;&#xA;as" />
+				<Property Name="HeaderContents" Value="&#xD;&#xA;&#xD;&#xA;CREATE   procedure [dbo].[xp_UpdateRawData] @jdata nvarchar(max)&#xD;&#xA;as" />
 			</Annotation>
 		</Element>
 	</Model>

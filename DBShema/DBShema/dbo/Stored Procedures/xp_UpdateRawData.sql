@@ -1,4 +1,5 @@
 ﻿
+
 CREATE   procedure [dbo].[xp_UpdateRawData] @jdata nvarchar(max)
 as begin
 	--SELECT @jdata=BuildColumn FROM OPENROWSET (BULK N'D:\SideProject\ITMS\report_ansi.json', SINGLE_CLOB) as j;
@@ -31,5 +32,5 @@ as begin
 				Volume = T.Volume,
 				UPDDate = getdate()
 		WHEN NOT MATCHED THEN
-			insert values(T.Domain, T.BIOSVersion, T.Manufacturer, T.SystemFamily, T.IPAddress, T.BIOSName, T.MachineName, T.OSType, T.Users, T.Volume);
+			insert values(T.Domain, T.BIOSVersion, T.Manufacturer, T.SystemFamily, T.IPAddress, T.BIOSName, T.MachineName, T.OSType, T.Users, T.Volume, getdate(), getdate());
 end
